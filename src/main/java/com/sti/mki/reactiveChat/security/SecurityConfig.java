@@ -20,7 +20,8 @@ public class SecurityConfig {
                 .anyExchange().authenticated()
                 .and()
                 .httpBasic().and()
-                .formLogin();
+                .formLogin().and()
+                .csrf().disable();
         return http.build();
     }
 
