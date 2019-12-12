@@ -27,13 +27,18 @@ public class SecurityConfig {
 
     @Bean
     public MapReactiveUserDetailsService userDetailsService() {
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        UserDetails user = User
-                .withUsername("user")
-                .password(encoder.encode("password"))
-                .roles("USER")
-                .build();
-        return new MapReactiveUserDetailsService(user);
+        return new MapReactiveUserDetailsService(
+                getUserDetails("Titov"),
+                getUserDetails("Kirilenko"),
+                getUserDetails("Иванейчиц"),
+                getUserDetails("Vlasik"));
     }
 
+    private UserDetails getUserDetails(String user) {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return User.withUsername(user)
+                .password(encoder.encode(user))
+                .roles("USER")
+                .build();
+    }
 }
